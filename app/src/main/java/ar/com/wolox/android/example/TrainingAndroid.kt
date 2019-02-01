@@ -12,7 +12,7 @@ import dagger.android.AndroidInjector
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
 
-class BootstrapApplication : WolmoApplication() {
+class TrainingAndroid : WolmoApplication() {
 
     override fun onInit() {
         // Initialize Application stuff here
@@ -24,7 +24,7 @@ class BootstrapApplication : WolmoApplication() {
         LeakCanary.install(this)
     }
 
-    override fun applicationInjector(): AndroidInjector<BootstrapApplication> {
+    override fun applicationInjector(): AndroidInjector<TrainingAndroid> {
         return DaggerAppComponent.builder().networkingComponent(buildDaggerNetworkingComponent())
                 .sharedPreferencesName(BaseConfiguration.SHARED_PREFERENCES_NAME).application(this)
                 .create(this)
