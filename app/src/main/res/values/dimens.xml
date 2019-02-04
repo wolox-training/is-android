@@ -44,6 +44,8 @@
     <dimen name="font_large_extra">20sp</dimen>
     <dimen name="font_big">22sp</dimen>
     <dimen name="font_huge">24sp</dimen>
+    <dimen name="banner_gradient">200dp</dimen>
+    <dimen name="frame_banner_grandient">250dp</dimen>
 
     <!-- Add your custom dimens here -->
 </resources>

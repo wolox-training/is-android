@@ -16,7 +16,6 @@
     <string name="login_password">Password</string>
     <string name="login_button">Log In</string>
     <string name="signup_button">Sign Up</string>
-    <string name="login_terms_and_conditions"><![CDATA[By joining you agree to our Terms & Conditions]]></string>
-    <string name="login_terms"><![CDATA[By joining you agree to our Terms & Conditions]]></string>
+    <string name="login_terms_and_conditions">By joining you agree to our <a href="https://www.wolox.com.ar/"><![CDATA[Terms & Conditions]]></a></string>
 
 </resources>

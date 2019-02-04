@@ -1,6 +1,7 @@
 package ar.com.wolox.android.example.ui.login
 
 import android.content.Intent
+import android.text.method.LinkMovementMethod
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.ui.viewpager.ViewPagerActivity
 import ar.com.wolox.android.example.utils.onClickListener
@@ -13,13 +14,14 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
     override fun layout(): Int = R.layout.fragment_login
 
     override fun init() {
-        buttonLogIn.isEnabled = false
+        vButtonLogIn.isEnabled = false
+        vLoginTermsAndConditions.movementMethod = LinkMovementMethod.getInstance()
     }
 
     override fun setListeners() {
-        loginEmailInput.onTextChanged { buttonLogIn.isEnabled = it.isNotBlank() }
-        buttonLogIn.onClickListener {
-            presenter.storeUsername(loginEmailInput.text.toString())
+        vLoginEmailInput.onTextChanged { vButtonLogIn.isEnabled = it.isNotBlank() }
+        vButtonLogIn.onClickListener {
+            presenter.storeUsername(vLoginEmailInput.text.toString())
         }
     }
 
