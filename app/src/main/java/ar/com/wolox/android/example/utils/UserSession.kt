@@ -26,7 +26,7 @@ constructor(private val mSharedPreferencesManager: SharedPreferencesManager) {
     var email: String? = null
         get() {
             if (field == null) {
-                field = mSharedPreferencesManager.get(Extras.UserLogin.EMAIL, null)
+                field = mSharedPreferencesManager.get(Extras.UserLogin.EMAIL, "")
             }
             return field
         }

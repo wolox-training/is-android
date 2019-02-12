@@ -46,6 +46,7 @@
     <dimen name="font_huge">24sp</dimen>
     <dimen name="banner_gradient">200dp</dimen>
     <dimen name="frame_banner_grandient">250dp</dimen>
+    <dimen name="home_title_label_text_size">24sp</dimen>
 
     <!-- Add your custom dimens here -->
 </resources>

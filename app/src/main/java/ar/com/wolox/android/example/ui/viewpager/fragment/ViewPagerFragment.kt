@@ -22,8 +22,13 @@ class ViewPagerFragment @Inject constructor() : WolmoFragment<BasePresenter<Any>
     override fun init() {
         fragmentPagerAdapter = SimpleFragmentPagerAdapter(childFragmentManager)
         fragmentPagerAdapter.addFragments(
-                Pair<androidx.fragment.app.Fragment, String>(page1Fragment, "Page 1"),
-                Pair<androidx.fragment.app.Fragment, String>(page2Fragment, "Page 2"))
+                Pair<androidx.fragment.app.Fragment, String>(page1Fragment, pageOne),
+                Pair<androidx.fragment.app.Fragment, String>(page2Fragment, pageTwo))
         vViewPager.adapter = fragmentPagerAdapter
+    }
+
+    companion object {
+        private const val pageOne = "Page 1"
+        private const val pageTwo = "Page 2"
     }
 }

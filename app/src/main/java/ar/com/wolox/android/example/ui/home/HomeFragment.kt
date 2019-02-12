@@ -28,6 +28,6 @@ class HomeFragment : WolmoFragment<HomePresenter>(), IHomeView {
         intent.removeFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         intent.removeFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
-        activity!!.finish()
+        // activity!!.finish()
     }
 }

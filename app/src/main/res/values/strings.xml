@@ -22,5 +22,8 @@
     <string name="home_title_label">Home Page</string>
     <string name="home_information_text">Click on log out to return to the log in page</string>
     <string name="home_log_out_button">Log Out</string>
+    <string name="required_email_error">Email is required</string>
+    <string name="required_password_error">Password is required</string>
+    <string name="invalid_email_error">This is not a valid email</string>
 
 </resources>

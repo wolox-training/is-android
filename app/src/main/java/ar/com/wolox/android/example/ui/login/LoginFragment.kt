@@ -1,13 +1,13 @@
 package ar.com.wolox.android.example.ui.login
 
 import android.content.Intent
+import android.text.Editable
 import android.text.method.LinkMovementMethod
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.ui.home.HomeActivity
 import ar.com.wolox.android.example.ui.signup.SignUpActivity
 import ar.com.wolox.android.example.utils.onClickListener
 import ar.com.wolox.wolmo.core.fragment.WolmoFragment
-import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
@@ -17,12 +17,12 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
     override fun init() {
         vLoginTermsAndConditions.movementMethod = LinkMovementMethod.getInstance()
 
-        if (!presenter.getEmail().isNullOrBlank()) {
+        if (presenter.getEmail()?.isNotEmpty()!!) {
             val intent = Intent(activity, HomeActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
-            activity!!.finish()
+            // activity!!.finish()
         }
     }
 
@@ -33,24 +33,29 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
         }
 
         vButtonLogIn.onClickListener {
-            val emailLoginCondition = android.util.Patterns.EMAIL_ADDRESS.matcher(vLoginEmailInput.text).matches()
-            if (vLoginEmailInput.text.isBlank()) {
-                vLoginEmailInput.setError("Email is required")
-            }
-            if (vLoginPasswordInput.text.isBlank()) {
-                vLoginPasswordInput.setError("Password is required")
-            } else if (!emailLoginCondition) {
-                vLoginEmailInput.setError("This is not a valid email")
-            } else {
+            if (checkValidField(vLoginEmailInput.text, vLoginPasswordInput.text))
                 presenter.doLogin(vLoginEmailInput.text.toString())
-            }
         }
+    }
+
+    private fun checkValidField(email: Editable, pass: Editable): Boolean {
+        val emailLoginCondition = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        return if (email.isBlank()) {
+            vLoginEmailInput.error = getString(R.string.required_email_error)
+            false
+        } else if (pass.isBlank()) {
+            vLoginPasswordInput.error = getString(R.string.required_password_error)
+            false
+        } else if (!emailLoginCondition) {
+            vLoginEmailInput.error = getString(R.string.invalid_email_error)
+            false
+        } else true
     }
 
     override fun onUsernameSaved() {
         val intent = Intent(activity, HomeActivity::class.java)
         startActivity(intent)
-        activity!!.finish()
+        // activity!!.finish()
     }
 
     override fun goToSignup() {
