@@ -2,11 +2,12 @@ package ar.com.wolox.android.example.ui.login
 
 import android.content.Intent
 import android.text.method.LinkMovementMethod
-import android.widget.Toast
 import ar.com.wolox.android.R
-import ar.com.wolox.android.example.ui.viewpager.ViewPagerActivity
+import ar.com.wolox.android.example.ui.home.HomeActivity
+import ar.com.wolox.android.example.ui.signup.SignUpActivity
 import ar.com.wolox.android.example.utils.onClickListener
 import ar.com.wolox.wolmo.core.fragment.WolmoFragment
+import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
@@ -15,24 +16,45 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
 
     override fun init() {
         vLoginTermsAndConditions.movementMethod = LinkMovementMethod.getInstance()
+
+        if (!presenter.getEmail().isNullOrBlank()) {
+            val intent = Intent(activity, HomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            activity!!.finish()
+        }
     }
 
     override fun setListeners() {
 
+        vButtonSingUp.onClickListener {
+            presenter.doSignUp()
+        }
+
         vButtonLogIn.onClickListener {
             val emailLoginCondition = android.util.Patterns.EMAIL_ADDRESS.matcher(vLoginEmailInput.text).matches()
-            if (vLoginEmailInput.text.isBlank() || vLoginPasswordInput.text.isBlank()) {
-                Toast.makeText(context, "Email and password are required", Toast.LENGTH_SHORT).show()
-            } else if (!emailLoginCondition && vLoginPasswordInput.text.isNotBlank()) {
-                Toast.makeText(context, "Email is not valid", Toast.LENGTH_SHORT).show()
+            if (vLoginEmailInput.text.isBlank()) {
+                vLoginEmailInput.setError("Email is required")
+            }
+            if (vLoginPasswordInput.text.isBlank()) {
+                vLoginPasswordInput.setError("Password is required")
+            } else if (!emailLoginCondition) {
+                vLoginEmailInput.setError("This is not a valid email")
             } else {
-                presenter.storeUsername(vLoginEmailInput.text.toString())
+                presenter.doLogin(vLoginEmailInput.text.toString())
             }
         }
     }
 
     override fun onUsernameSaved() {
-        val intent = Intent(activity, ViewPagerActivity::class.java)
+        val intent = Intent(activity, HomeActivity::class.java)
+        startActivity(intent)
+        activity!!.finish()
+    }
+
+    override fun goToSignup() {
+        val intent = Intent(activity, SignUpActivity::class.java)
         startActivity(intent)
     }
 }

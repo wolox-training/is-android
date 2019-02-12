@@ -22,4 +22,16 @@ constructor(private val mSharedPreferencesManager: SharedPreferencesManager) {
             field = username
             mSharedPreferencesManager.store(Extras.UserLogin.USERNAME, username)
         }
+
+    var email: String? = null
+        get() {
+            if (field == null) {
+                field = mSharedPreferencesManager.get(Extras.UserLogin.EMAIL, null)
+            }
+            return field
+        }
+        set(email) {
+            field = email
+            mSharedPreferencesManager.store(Extras.UserLogin.EMAIL, email)
+        }
 }

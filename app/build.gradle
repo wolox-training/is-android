@@ -136,4 +136,5 @@ dependencies {
     testImplementation "org.mockito:mockito-inline:2.13.0"
     testImplementation "org.assertj:assertj-core:3.9.0"
     testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leak_canary_version"
+
 }

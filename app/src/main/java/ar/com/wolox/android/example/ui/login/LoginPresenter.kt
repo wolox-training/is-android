@@ -7,8 +7,16 @@ import javax.inject.Inject
 
 class LoginPresenter @Inject constructor(private val mUserSession: UserSession) : BasePresenter<ILoginView>() {
 
-    fun storeUsername(text: String) {
-        mUserSession.username = text
+    fun doLogin(email: String) {
+        mUserSession.email = email
         view.onUsernameSaved()
+    }
+
+    fun getEmail(): String? {
+        return mUserSession.email
+    }
+
+    fun doSignUp() {
+        view.goToSignup()
     }
 }

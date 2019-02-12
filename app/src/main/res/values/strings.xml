@@ -17,5 +17,10 @@
     <string name="login_button">Log In</string>
     <string name="signup_button">Sign Up</string>
     <string name="login_terms_and_conditions">By joining you agree to our <a href="https://www.wolox.com.ar/"><![CDATA[Terms & Conditions]]></a></string>
+    <string name="saved_user_email_key">logged_user</string>
+    <string name="saved_user_email_default_key">default</string>
+    <string name="home_title_label">Home Page</string>
+    <string name="home_information_text">Click on log out to return to the log in page</string>
+    <string name="home_log_out_button">Log Out</string>
 
 </resources>
