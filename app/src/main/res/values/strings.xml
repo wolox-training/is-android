@@ -17,5 +17,7 @@
     <string name="login_button">Log In</string>
     <string name="signup_button">Sign Up</string>
     <string name="login_terms_and_conditions">By joining you agree to our <a href="https://www.wolox.com.ar/"><![CDATA[Terms & Conditions]]></a></string>
+    <string name="required_email_and_password_error">Email and password are required</string>
+    <string name="invalid_email_error">Email is not valid</string>
 
 </resources>

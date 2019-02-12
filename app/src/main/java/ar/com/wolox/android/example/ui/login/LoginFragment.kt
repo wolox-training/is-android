@@ -22,9 +22,9 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
         vButtonLogIn.onClickListener {
             val emailLoginCondition = android.util.Patterns.EMAIL_ADDRESS.matcher(vLoginEmailInput.text).matches()
             if (vLoginEmailInput.text.isBlank() || vLoginPasswordInput.text.isBlank()) {
-                Toast.makeText(context, "Email and password are required", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, resources.getString(R.string.required_email_and_password_error), Toast.LENGTH_SHORT).show()
             } else if (!emailLoginCondition && vLoginPasswordInput.text.isNotBlank()) {
-                Toast.makeText(context, "Email is not valid", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, resources.getString(R.string.invalid_email_error), Toast.LENGTH_SHORT).show()
             } else {
                 presenter.storeUsername(vLoginEmailInput.text.toString())
             }
