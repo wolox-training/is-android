@@ -1,4 +1,9 @@
 package ar.com.wolox.android.example.model
 
-data class User(var id: Int, var email: String, var password: String) {
-}
+import com.google.gson.annotations.SerializedName
+
+data class User(
+    @SerializedName("id") var id: Int,
+    @SerializedName("email")var email: String,
+    @SerializedName("password")var password: String
+)

@@ -2,12 +2,12 @@ package ar.com.wolox.android.example.ui.login
 
 import android.content.Intent
 import android.text.method.LinkMovementMethod
+import android.widget.Toast
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.ui.home.HomeActivity
 import ar.com.wolox.android.example.ui.signup.SignUpActivity
 import ar.com.wolox.android.example.utils.onClickListener
 import ar.com.wolox.wolmo.core.fragment.WolmoFragment
-import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
@@ -42,7 +42,7 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
             } else if (!emailLoginCondition) {
                 vLoginEmailInput.setError("This is not a valid email")
             } else {
-                presenter.doLogin(vLoginEmailInput.text.toString())
+                presenter.doLogin(vLoginEmailInput.text.toString(), vLoginPasswordInput.text.toString())
             }
         }
     }
@@ -56,5 +56,13 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
     override fun goToSignup() {
         val intent = Intent(activity, SignUpActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onLoginConnectionError() {
+        Toast.makeText(context, getString(R.string.connection_error), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onLoginInvalidEmailError() {
+        Toast.makeText(context, getString(R.string.invalid_email_error), Toast.LENGTH_SHORT).show()
     }
 }

@@ -4,4 +4,6 @@ interface ILoginView {
 
     fun onUsernameSaved()
     fun goToSignup()
+    fun onLoginConnectionError()
+    fun onLoginInvalidEmailError()
 }
