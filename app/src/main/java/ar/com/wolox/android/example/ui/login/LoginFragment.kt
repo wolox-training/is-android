@@ -16,14 +16,6 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
 
     override fun init() {
         vLoginTermsAndConditions.movementMethod = LinkMovementMethod.getInstance()
-
-        if (!presenter.getEmail().isNullOrBlank()) {
-            val intent = Intent(activity, HomeActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            activity!!.finish()
-        }
     }
 
     override fun setListeners() {
@@ -49,8 +41,9 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
 
     override fun onUsernameSaved() {
         val intent = Intent(activity, HomeActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
-        activity!!.finish()
     }
 
     override fun goToSignup() {

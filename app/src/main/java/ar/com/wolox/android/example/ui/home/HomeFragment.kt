@@ -25,9 +25,8 @@ class HomeFragment : WolmoFragment<HomePresenter>(), IHomeView {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun returnToLogin() {
         val intent = Intent(activity, LoginActivity::class.java)
-        intent.removeFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        intent.removeFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
-        activity!!.finish()
     }
 }

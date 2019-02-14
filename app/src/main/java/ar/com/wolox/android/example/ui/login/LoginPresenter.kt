@@ -18,7 +18,7 @@ class LoginPresenter @Inject constructor(private val mUserSession: UserSession, 
                 networkCallback {
                     onResponseSuccessful {
                         if (it!!.isNotEmpty()) {
-                            if (verifyUserInfo(it,email,pass)){
+                            if (verifyUserInfo(it, email, pass)) {
                                 mUserSession.email = email
                                 view.onUsernameSaved()
                             }
@@ -38,11 +38,11 @@ class LoginPresenter @Inject constructor(private val mUserSession: UserSession, 
     private fun verifyUserInfo(it: Array<User>, email: String, pass: String): Boolean {
         return it[0].email == email && it[0].password == pass
     }
-
+    /*
     fun getEmail(): String? {
         return mUserSession.email
     }
-
+    */
     fun doSignUp() {
         view.goToSignup()
     }
