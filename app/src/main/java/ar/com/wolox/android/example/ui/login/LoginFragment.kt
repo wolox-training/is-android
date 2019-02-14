@@ -2,6 +2,7 @@ package ar.com.wolox.android.example.ui.login
 
 import android.content.Intent
 import android.text.method.LinkMovementMethod
+import android.view.View
 import android.widget.Toast
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.ui.home.HomeActivity
@@ -34,12 +35,14 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
             } else if (!emailLoginCondition) {
                 vLoginEmailInput.setError("This is not a valid email")
             } else {
+                loadingOn()
                 presenter.doLogin(vLoginEmailInput.text.toString(), vLoginPasswordInput.text.toString())
             }
         }
     }
 
     override fun onUsernameSaved() {
+        loadingOff()
         val intent = Intent(activity, HomeActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -52,10 +55,20 @@ class LoginFragment : WolmoFragment<LoginPresenter>(), ILoginView {
     }
 
     override fun onLoginConnectionError() {
+        loadingOff()
         Toast.makeText(context, getString(R.string.connection_error), Toast.LENGTH_SHORT).show()
     }
 
     override fun onLoginInvalidEmailError() {
+        loadingOff()
         Toast.makeText(context, getString(R.string.invalid_email_error), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loadingOn() {
+        vLoadingServerCall.visibility = View.VISIBLE
+    }
+
+    private fun loadingOff() {
+        vLoadingServerCall.visibility = View.GONE
     }
 }
