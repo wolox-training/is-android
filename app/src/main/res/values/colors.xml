@@ -6,4 +6,5 @@
     <color name="colorPrimaryDark">#0960B7</color>
     <color name="colorAccent">#1D9BD7</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="design_default_color_profile_on">#CC8dc63f</color>
 </resources>
