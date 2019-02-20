@@ -5,33 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/vAppBar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/vHomeTitleImage"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/wolox_logo" />
+            android:layout_width="@dimen/static_spacing_huge"
+            android:layout_height="@dimen/static_spacing_huge"
+            android:layout_margin="2dp"
+            android:src="@drawable/wolox_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/vHomeTitleText"/>
+
         <TextView
             android:id="@+id/vHomeTitleText"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Home View"
-            android:paddingTop="30dp"
+            android:textSize="@dimen/font_big"
             android:textAlignment="center"
-            android:textSize="@dimen/font_big" />
-    </com.google.android.material.appbar.AppBarLayout>
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/vHomeTitleImage"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/vTablayout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         app:tabSelectedTextColor="@color/design_default_color_profile_on"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,13 +46,12 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vHomeViewPager"
         android:layout_width="match_parent"
-        android:layout_height="278dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vTablayout"
-        app:layout_constraintVertical_bias="0.493">
+        app:layout_constraintStart_toEndOf="@id/vTablayout"
+        app:layout_constraintTop_toBottomOf="@+id/vTablayout">
 
     </androidx.viewpager.widget.ViewPager>
 

@@ -3,11 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/vNewsTitle"
@@ -27,7 +24,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="Text"
-        android:maxLines="2"
+        android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
