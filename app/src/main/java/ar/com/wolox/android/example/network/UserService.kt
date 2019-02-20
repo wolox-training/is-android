@@ -8,4 +8,7 @@ import retrofit2.http.Query
 interface UserService {
     @GET("/users")
     fun getUserByEmail(@Query("email") email: String): Call<Array<User>>
+
+    @GET("/users/{id}")
+    fun getUserById(@Query("id") id: Int): Call<Array<User>>
 }

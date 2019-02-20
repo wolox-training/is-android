@@ -16,7 +16,7 @@ class NewsPresenter @Inject constructor(private val mUserSession: UserSession, p
                 networkCallback {
                     onResponseSuccessful {
                         if (it!!.isNotEmpty())
-                            view.loadNewsSuccessfully(it)
+                            view.loadNewsSuccessfully(it, mUserSession)
                         else view.loadNewsFailed()
                     }
                     onCallFailure {

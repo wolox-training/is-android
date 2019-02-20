@@ -20,6 +20,7 @@ class LoginPresenter @Inject constructor(private val mUserSession: UserSession, 
                         if (it!!.isNotEmpty()) {
                             if (verifyUserInfo(it, email, pass)) {
                                 mUserSession.email = email
+                                mUserSession.userId = it[0].id
                                 view.onUsernameSaved()
                             }
                         } else view.onLoginInvalidEmailError()

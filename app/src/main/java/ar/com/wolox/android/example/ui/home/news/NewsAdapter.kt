@@ -8,22 +8,32 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.model.News
+import ar.com.wolox.android.example.utils.UserSession
+import ar.com.wolox.android.example.utils.onClickListener
 import com.bumptech.glide.Glide
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.SimpleDateFormat
 
-class NewsAdapter(val newsList: Array<News>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(val newsList: Array<News>, val loggedUser: UserSession) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val prettytime = PrettyTime()
         val simpleDateFormatPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val simpleDateFormat = SimpleDateFormat(simpleDateFormatPattern)
 
-        holder.newsTitle?.text = newsList[position].title
-        holder.newsText?.text = newsList[position].text
+        // holder.newsTitle?.text = newsList[position].title
+        // holder.newsUserId.text =
+        holder.newsText.text = newsList[position].text
         holder.newsCreatedAt?.text = prettytime.format(simpleDateFormat.parse(newsList[position].createdAt))
         holder.newsLikeSelector?.setImageResource(R.drawable.news_like_selector)
         holder.updateWithUrl(newsList[position].picture)
+
+        if (newsList[position].likes.contains(loggedUser.userId)) {
+            holder.newsLikeSelector.isSelected = true
+        }
+        holder.newsLikeSelector.onClickListener {
+            holder.newsLikeSelector.isSelected = !holder.newsLikeSelector.isSelected
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,8 +46,8 @@ class NewsAdapter(val newsList: Array<News>) : RecyclerView.Adapter<NewsAdapter.
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        // val newsUserId = itemView.findViewById<TextView>(R.id.vNewsUserId)
-        val newsTitle = itemView.findViewById<TextView>(R.id.vNewsTitle)
+        val newsUserId = itemView.findViewById<TextView>(R.id.vNewsUser)
+        // val newsTitle = itemView.findViewById<TextView>(R.id.vNewsTitle)
         val newsText = itemView.findViewById<TextView>(R.id.vNewsText)
         val newsCreatedAt = itemView.findViewById<TextView>(R.id.vNewsCreatedAt)
         val newsLikeSelector = itemView.findViewById<ImageView>(R.id.vNewsLikeSelector)
