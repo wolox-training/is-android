@@ -8,18 +8,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.model.News
+import com.bumptech.glide.Glide
+import org.ocpsoft.prettytime.PrettyTime
+import java.text.SimpleDateFormat
 
 class NewsAdapter(val newsList: Array<News>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder?.newsTitle?.text = newsList[position].title
-        holder?.newsText?.text = newsList[position].text
-        holder?.newsCreatedAt?.text = newsList[position].createdAt
-        holder?.newsLikeSelector?.setImageResource(R.drawable.news_like_selector)
+        val prettytime = PrettyTime()
+        val simpleDateFormatPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        val simpleDateFormat = SimpleDateFormat(simpleDateFormatPattern)
+
+        holder.newsTitle?.text = newsList[position].title
+        holder.newsText?.text = newsList[position].text
+        holder.newsCreatedAt?.text = prettytime.format(simpleDateFormat.parse(newsList[position].createdAt))
+        holder.newsLikeSelector?.setImageResource(R.drawable.news_like_selector)
+        holder.updateWithUrl(newsList[position].picture)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent?.context).inflate(R.layout.news_item_view, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.news_item_view, parent, false)
         return ViewHolder(v)
     }
 
@@ -33,21 +41,10 @@ class NewsAdapter(val newsList: Array<News>) : RecyclerView.Adapter<NewsAdapter.
         val newsText = itemView.findViewById<TextView>(R.id.vNewsText)
         val newsCreatedAt = itemView.findViewById<TextView>(R.id.vNewsCreatedAt)
         val newsLikeSelector = itemView.findViewById<ImageView>(R.id.vNewsLikeSelector)
-        // val newsImage = itemView.findViewById<ImageView>(R.id.vNewsImage)
+        val newsImage = itemView.findViewById<ImageView>(R.id.vNewsImage)
+
+        fun updateWithUrl(url: String) {
+            Glide.with(itemView).load(url.replace("http://", "https://")).into(newsImage)
+        }
     }
 }
-
-// only to Use Picasso
-/*
-* This is a method of class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-* fun updateWithUrl(url: String) {
-            Picasso.get().load(url).into(newsImage)
-        }
-*
-* This is how we create newsImage as Attribute of class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-* val newsImage = itemView.findViewById<ImageView>(R.id.vNewsImage)
-*
-* This is how to bind the ViewHolder and load the image from an URL. This goes inside override fun onBindViewHolder(holder: ViewHolder, position: Int)
-* holder?.updateWithUrl(newsList[position].picture)
-*
-* */
