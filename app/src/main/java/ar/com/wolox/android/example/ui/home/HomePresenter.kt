@@ -12,4 +12,8 @@ class HomePresenter @Inject constructor(private val mUserSession: UserSession) :
         mUserSession.email = null
         view.returnToLogin()
     }
+
+    fun addNews() {
+        view.goToCreateNews()
+    }
 }
