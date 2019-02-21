@@ -1,6 +1,7 @@
 package ar.com.wolox.android.example.ui.home
 
 import android.content.Intent
+import android.os.Build
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.ui.home.news.NewsFragment
 import ar.com.wolox.android.example.ui.home.profile.ProfileFragment
@@ -26,7 +27,8 @@ class HomeFragment @Inject constructor() : WolmoFragment<HomePresenter>(), IHome
         viewAdapter = SimpleFragmentPagerAdapter(fragmentManager!!)
         viewAdapter.addFragment(mNewsFragment, "News")
         viewAdapter.addFragment(mProfileFragment, "Profile")
-
+        if (Build.VERSION.SDK_INT > 21)
+            activity!!.window.statusBarColor = resources.getColor(R.color.design_default_color_primary)
         vHomeViewPager.adapter = viewAdapter
 
         vTablayout.setupWithViewPager(vHomeViewPager)

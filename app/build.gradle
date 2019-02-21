@@ -153,4 +153,7 @@ dependencies {
     //Koda Time
     implementation "com.github.debop:koda-time:2.0.0"
 
+    //Floating Action Button
+    implementation 'com.melnykov:floatingactionbutton:1.3.0'
+
 }

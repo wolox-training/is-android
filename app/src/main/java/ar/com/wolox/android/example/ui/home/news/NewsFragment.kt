@@ -6,11 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.model.News
+import ar.com.wolox.android.example.model.User
 import ar.com.wolox.android.example.utils.UserSession
 import ar.com.wolox.wolmo.core.fragment.WolmoFragment
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_news.*
-import kotlinx.android.synthetic.main.news_item_view.*
 import javax.inject.Inject
 
 class NewsFragment @Inject constructor() : WolmoFragment<NewsPresenter>(), INewsView {
@@ -21,11 +20,11 @@ class NewsFragment @Inject constructor() : WolmoFragment<NewsPresenter>(), INews
         presenter.loadNews()
     }
 
-    override fun loadNewsSuccessfully(newsList: Array<News>, loggedUser: UserSession) {
+    override fun loadNewsSuccessfully(newsList: Array<News>, loggedUser: UserSession, users: Array<User>) {
         loadingOff()
         val rv = vRecyclerViewNews
         rv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        val adapter = NewsAdapter(newsList, loggedUser)
+        val adapter = NewsAdapter(newsList, loggedUser, users)
         rv.adapter = adapter
         Toast.makeText(context, getString(R.string.news_load_success), Toast.LENGTH_SHORT).show()
     }

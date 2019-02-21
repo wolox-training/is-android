@@ -11,4 +11,7 @@ interface UserService {
 
     @GET("/users/{id}")
     fun getUserById(@Query("id") id: Int): Call<Array<User>>
+
+    @GET("/users")
+    fun getAllUsers(): Call<Array<User>>
 }
