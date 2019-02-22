@@ -9,29 +9,6 @@ import ar.com.wolox.wolmo.core.presenter.BasePresenter
 import ar.com.wolox.wolmo.networking.retrofit.RetrofitServices
 
 import javax.inject.Inject
-/*
-class NewsPresenter @Inject constructor(private val mUserSession: UserSession, private val vRetrofitService: RetrofitServices) : BasePresenter<INewsView>() {
-    fun loadNews() {
-        val service = vRetrofitService.getService(NewsService::class.java)
-        val call = service.getAllNews()
-        call.enqueue(
-                networkCallback {
-                    onResponseSuccessful {
-                        if (it!!.isNotEmpty())
-                            view.loadNewsSuccessfully(it, mUserSession)
-                        else view.loadNewsFailed()
-                    }
-                    onCallFailure {
-                        runIfViewAttached(
-                                Runnable {
-                                    view.onLoginConnectionError()
-                                }
-                        )
-                    }
-                }
-        )
-    }
-}*/
 
 class NewsPresenter @Inject constructor(private val mUserSession: UserSession, private val vRetrofitService: RetrofitServices) : BasePresenter<INewsView>() {
     fun loadNews() {
@@ -59,11 +36,12 @@ class NewsPresenter @Inject constructor(private val mUserSession: UserSession, p
     private fun loadUsers(news: Array<News>, mUserSession: UserSession) {
         val service = vRetrofitService.getService(UserService::class.java)
         val call = service.getAllUsers()
+        val newsToshow = setDefaultNews(news)
         call.enqueue(
                 networkCallback {
                     onResponseSuccessful {
                         if (it!!.isNotEmpty())
-                            view.loadNewsSuccessfully(news, mUserSession, it)
+                            view.loadNewsSuccessfully(newsToshow, mUserSession, it)
                         else view.loadNewsFailed()
                     }
                     onCallFailure {
@@ -75,5 +53,9 @@ class NewsPresenter @Inject constructor(private val mUserSession: UserSession, p
                     }
                 }
         )
+    }
+
+    private fun setDefaultNews(news: Array<News>): Array<News> {
+        return news + news + news
     }
 }

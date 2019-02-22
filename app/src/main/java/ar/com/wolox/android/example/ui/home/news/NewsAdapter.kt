@@ -22,7 +22,6 @@ class NewsAdapter(val newsList: Array<News>, val loggedUser: UserSession, val us
         val simpleDateFormatPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val simpleDateFormat = SimpleDateFormat(simpleDateFormatPattern)
 
-        // holder.newsTitle?.text = newsList[position].title
         holder.newsUsername.text = getUsername(newsList, users, position)
         holder.newsText.text = newsList[position].text
         holder.newsCreatedAt?.text = prettytime.format(simpleDateFormat.parse(newsList[position].createdAt))
@@ -57,7 +56,6 @@ class NewsAdapter(val newsList: Array<News>, val loggedUser: UserSession, val us
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val newsUsername = itemView.findViewById<TextView>(R.id.vNewsUser)
-        // val newsTitle = itemView.findViewById<TextView>(R.id.vNewsTitle)
         val newsText = itemView.findViewById<TextView>(R.id.vNewsText)
         val newsCreatedAt = itemView.findViewById<TextView>(R.id.vNewsCreatedAt)
         val newsLikeSelector = itemView.findViewById<ImageView>(R.id.vNewsLikeSelector)

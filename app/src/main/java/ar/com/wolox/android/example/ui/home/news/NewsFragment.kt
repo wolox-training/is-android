@@ -30,6 +30,10 @@ class NewsFragment @Inject constructor() : WolmoFragment<NewsPresenter>(), INews
     }
 
     override fun setListeners() {
+        vNewsSwipeRefresh.setOnRefreshListener {
+            vNewsSwipeRefresh.isRefreshing = false
+            Toast.makeText(context, "Refresh worked", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun loadNewsFailed() {

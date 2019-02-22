@@ -29,6 +29,8 @@ class HomeFragment @Inject constructor() : WolmoFragment<HomePresenter>(), IHome
 
     override fun layout(): Int = R.layout.fragment_home
 
+    private val ALPHA_MAX_VALUE = 255
+
     override fun init() {
         viewAdapter = SimpleFragmentPagerAdapter(fragmentManager!!)
         viewAdapter.addFragment(mNewsFragment, "News")
@@ -43,6 +45,7 @@ class HomeFragment @Inject constructor() : WolmoFragment<HomePresenter>(), IHome
         vTablayout.getTabAt(1)?.setIcon(R.drawable.profile_button_selector)
 
         vHomeTitleText.text = homeTitleTextDefault + vTablayout.getTabAt(0)!!.text
+        vHomeFabAdd.background.alpha = ALPHA_MAX_VALUE
     }
 
     override fun setListeners() {

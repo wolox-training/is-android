@@ -65,6 +65,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         app:fab_type="normal"
+        app:fab_shadow="false"
         android:src="@drawable/ic_fab_add"
         app:fab_colorNormal="@color/design_default_color_profile_on"
         app:layout_constraintBottom_toBottomOf="parent"
