@@ -1,6 +1,7 @@
 package ar.com.wolox.android.example.ui.home.news
 
 import ar.com.wolox.android.example.model.News
+import ar.com.wolox.android.example.model.User
 import ar.com.wolox.android.example.network.NewsService
 import ar.com.wolox.android.example.network.UserService
 import ar.com.wolox.android.example.utils.UserSession
@@ -11,16 +12,22 @@ import ar.com.wolox.wolmo.networking.retrofit.RetrofitServices
 import javax.inject.Inject
 
 class NewsPresenter @Inject constructor(private val mUserSession: UserSession, private val vRetrofitService: RetrofitServices) : BasePresenter<INewsView>() {
-    fun loadNews() {
+
+    private var usersInfo: Array<User> = emptyArray()
+
+    fun loadNews(firstCallFlag: Boolean) {
         val service = vRetrofitService.getService(NewsService::class.java)
         val call = service.getAllNews()
         call.enqueue(
                 networkCallback {
                     onResponseSuccessful {
-                        if (it!!.isNotEmpty())
-                            // view.loadNewsSuccessfully(it, mUserSession)
-                            loadUsers(it, mUserSession)
-                        else view.loadNewsFailed()
+                        if (it!!.isNotEmpty()) {
+                            if (firstCallFlag)
+                                loadUsers(it, mUserSession)
+                            else
+                                view.loadNewsSuccessfully(it, mUserSession, usersInfo)
+                        } else
+                            view.loadNewsFailed()
                     }
                     onCallFailure {
                         runIfViewAttached(
@@ -36,13 +43,13 @@ class NewsPresenter @Inject constructor(private val mUserSession: UserSession, p
     private fun loadUsers(news: Array<News>, mUserSession: UserSession) {
         val service = vRetrofitService.getService(UserService::class.java)
         val call = service.getAllUsers()
-        val newsToshow = setDefaultNews(news)
         call.enqueue(
                 networkCallback {
                     onResponseSuccessful {
-                        if (it!!.isNotEmpty())
-                            view.loadNewsSuccessfully(newsToshow, mUserSession, it)
-                        else view.loadNewsFailed()
+                        if (it!!.isNotEmpty()) {
+                            usersInfo = it
+                            view.loadNewsSuccessfully(news, mUserSession, usersInfo)
+                        } else view.loadNewsFailed()
                     }
                     onCallFailure {
                         runIfViewAttached(
@@ -53,9 +60,5 @@ class NewsPresenter @Inject constructor(private val mUserSession: UserSession, p
                     }
                 }
         )
-    }
-
-    private fun setDefaultNews(news: Array<News>): Array<News> {
-        return news + news + news
     }
 }

@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.SimpleDateFormat
 
-class NewsAdapter(val newsList: Array<News>, val loggedUser: UserSession, val users: Array<User>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(var newsList: Array<News>, val loggedUser: UserSession, val users: Array<User>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val prettytime = PrettyTime()
@@ -27,10 +27,8 @@ class NewsAdapter(val newsList: Array<News>, val loggedUser: UserSession, val us
         holder.newsCreatedAt?.text = prettytime.format(simpleDateFormat.parse(newsList[position].createdAt))
         holder.newsLikeSelector?.setImageResource(R.drawable.news_like_selector)
         holder.updateWithUrl(newsList[position].picture)
+        holder.newsLikeSelector.isSelected = newsList[position].likes.contains(loggedUser.userId)
 
-        if (newsList[position].likes.contains(loggedUser.userId)) {
-            holder.newsLikeSelector.isSelected = true
-        }
         holder.newsLikeSelector.onClickListener {
             holder.newsLikeSelector.isSelected = !holder.newsLikeSelector.isSelected
         }
@@ -52,6 +50,10 @@ class NewsAdapter(val newsList: Array<News>, val loggedUser: UserSession, val us
 
     override fun getItemCount(): Int {
         return newsList.size
+    }
+
+    fun setNews(newsListToAdd: Array<News>) {
+        newsList = newsListToAdd
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
