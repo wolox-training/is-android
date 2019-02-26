@@ -29,6 +29,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".example.ui.home.newsdetails.NewsDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".example.ui.root.RootActivity"
             android:screenOrientation="portrait">
 

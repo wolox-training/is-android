@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.model.News
 import ar.com.wolox.android.example.model.User
+import ar.com.wolox.android.example.ui.home.newsdetails.NewsDetailsActivity
 import ar.com.wolox.android.example.utils.UserSession
 import ar.com.wolox.wolmo.core.fragment.WolmoFragment
 import kotlinx.android.synthetic.main.fragment_news.*
@@ -52,6 +53,7 @@ class NewsFragment @Inject constructor() : WolmoFragment<NewsPresenter>(), INews
     }
 
     override fun setListeners() {
+
         vRecyclerViewNews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -94,10 +96,18 @@ class NewsFragment @Inject constructor() : WolmoFragment<NewsPresenter>(), INews
 
     private fun initConfigAfterNewsLoad(loggedUser: UserSession, users: Array<User>) {
         rv.layoutManager = manager
-        adapter = NewsAdapter(newsList, loggedUser, users)
+        adapter = NewsAdapter(newsList, loggedUser, users) {
+            // TODO: Llamar metodo
+            // Toast.makeText(requireContext(), "Clickee ${it.title}", Toast.LENGTH_SHORT).show()
+            onShowDetails(it)
+        }
         rv.adapter = adapter
         adapter.notifyDataSetChanged()
         firstCallFlag = false
+    }
+
+    private fun onShowDetails(currentNews: News) {
+        NewsDetailsActivity.start(requireContext(), currentNews)
     }
 
     private fun fillNewsList(newsListToAdd: Array<News>, timesToLoad: Int) {

@@ -15,23 +15,47 @@ import com.bumptech.glide.Glide
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.SimpleDateFormat
 
-class NewsAdapter(var newsList: Array<News>, val loggedUser: UserSession, val users: Array<User>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(
+    var newsList: Array<News>,
+    val loggedUser: UserSession,
+    val users: Array<User>,
+    private val newsClickListener: (News) -> Unit
+)
+    : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val prettytime = PrettyTime()
         val simpleDateFormatPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val simpleDateFormat = SimpleDateFormat(simpleDateFormatPattern)
 
-        holder.newsUsername.text = getUsername(newsList, users, position)
+        val currentNews = newsList[position]
+        holder.newsUsername.text = "$position. ${getUsername(newsList, users, position)}"
         holder.newsText.text = newsList[position].text
         holder.newsCreatedAt?.text = prettytime.format(simpleDateFormat.parse(newsList[position].createdAt))
         holder.newsLikeSelector?.setImageResource(R.drawable.news_like_selector)
         holder.updateWithUrl(newsList[position].picture)
-        holder.newsLikeSelector.isSelected = newsList[position].likes.contains(loggedUser.userId)
+        holder.newsLikeSelector.isSelected = newsList[position].isLikedByUser(loggedUser.userId!!)
 
         holder.newsLikeSelector.onClickListener {
             holder.newsLikeSelector.isSelected = !holder.newsLikeSelector.isSelected
         }
+
+        holder.itemView.onClickListener { newsClickListener(currentNews) }
+
+        /*
+        holder.itemView.onClickListener {
+            holder.newsUsername.text = "click on adapter!"
+            EventBus.getDefault()
+                    .post(News(
+                            position.toString(),
+                            loggedUser.userId!!,
+                            newsList[position].title,
+                            newsList[position].text,
+                            newsList[position].picture,
+                            newsList[position].createdAt,
+                            newsList[position].likes)
+                    )
+        }*/
     }
 
     private fun getUsername(newsList: Array<News>, users: Array<User>, position: Int): String {

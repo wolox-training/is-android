@@ -3,6 +3,8 @@ package ar.com.wolox.android.example.di
 import ar.com.wolox.android.example.ui.home.HomeActivity
 import ar.com.wolox.android.example.ui.home.HomeFragment
 import ar.com.wolox.android.example.ui.home.news.NewsFragment
+import ar.com.wolox.android.example.ui.home.newsdetails.NewsDetailsActivity
+import ar.com.wolox.android.example.ui.home.newsdetails.NewsDetailsFragment
 import ar.com.wolox.android.example.ui.home.profile.ProfileFragment
 import ar.com.wolox.android.example.ui.login.LoginActivity
 import ar.com.wolox.android.example.ui.login.LoginFragment
@@ -46,4 +48,10 @@ abstract class AppModule {
 
     @ContributesAndroidInjector
     internal abstract fun profileFragment(): ProfileFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun newsDetailsActivity(): NewsDetailsActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun newsDetailsFragment(): NewsDetailsFragment
 }
