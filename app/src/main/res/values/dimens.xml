@@ -46,6 +46,7 @@
     <dimen name="font_huge">24sp</dimen>
     <dimen name="banner_gradient">200dp</dimen>
     <dimen name="frame_banner_grandient">250dp</dimen>
+    <dimen name="news_details_image_height">300dp</dimen>
 
     <!-- Add your custom dimens here -->
 </resources>

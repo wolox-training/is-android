@@ -12,6 +12,7 @@ import ar.com.wolox.android.example.model.User
 import ar.com.wolox.android.example.utils.UserSession
 import ar.com.wolox.android.example.utils.onClickListener
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.SimpleDateFormat
 
@@ -27,11 +28,11 @@ class NewsAdapter(
         val prettytime = PrettyTime()
         val simpleDateFormatPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val simpleDateFormat = SimpleDateFormat(simpleDateFormatPattern)
-
+        val username = getUsername(newsList, users, position)
         val currentNews = newsList[position]
-        holder.newsUsername.text = "$position. ${getUsername(newsList, users, position)}"
+        holder.newsUsername.text = username
         holder.newsText.text = newsList[position].text
-        holder.newsCreatedAt?.text = prettytime.format(simpleDateFormat.parse(newsList[position].createdAt))
+        holder.newsCreatedAt?.text = prettytime.format(simpleDateFormat.parse(newsList[position].createdAt)).replace("years ago", "y").replace("days", "d").replace("month", "m")
         holder.newsLikeSelector?.setImageResource(R.drawable.news_like_selector)
         holder.updateWithUrl(newsList[position].picture)
         holder.newsLikeSelector.isSelected = newsList[position].isLikedByUser(loggedUser.userId!!)
@@ -41,21 +42,6 @@ class NewsAdapter(
         }
 
         holder.itemView.onClickListener { newsClickListener(currentNews) }
-
-        /*
-        holder.itemView.onClickListener {
-            holder.newsUsername.text = "click on adapter!"
-            EventBus.getDefault()
-                    .post(News(
-                            position.toString(),
-                            loggedUser.userId!!,
-                            newsList[position].title,
-                            newsList[position].text,
-                            newsList[position].picture,
-                            newsList[position].createdAt,
-                            newsList[position].likes)
-                    )
-        }*/
     }
 
     private fun getUsername(newsList: Array<News>, users: Array<User>, position: Int): String {
@@ -88,7 +74,11 @@ class NewsAdapter(
         val newsImage = itemView.findViewById<ImageView>(R.id.vNewsImage)
 
         fun updateWithUrl(url: String) {
-            Glide.with(itemView).load(url.replace("http://", "https://")).into(newsImage)
+
+            Glide.with(itemView)
+                    .load(url.replace("http://", "https://"))
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(newsImage)
         }
     }
 }

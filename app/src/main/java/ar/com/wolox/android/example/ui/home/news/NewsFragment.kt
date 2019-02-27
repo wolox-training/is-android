@@ -11,6 +11,7 @@ import ar.com.wolox.android.example.ui.home.newsdetails.NewsDetailsActivity
 import ar.com.wolox.android.example.utils.UserSession
 import ar.com.wolox.wolmo.core.fragment.WolmoFragment
 import kotlinx.android.synthetic.main.fragment_news.*
+import kotlinx.android.synthetic.main.news_item_view.*
 import javax.inject.Inject
 
 class NewsFragment @Inject constructor() : WolmoFragment<NewsPresenter>(), INewsView {
@@ -97,17 +98,15 @@ class NewsFragment @Inject constructor() : WolmoFragment<NewsPresenter>(), INews
     private fun initConfigAfterNewsLoad(loggedUser: UserSession, users: Array<User>) {
         rv.layoutManager = manager
         adapter = NewsAdapter(newsList, loggedUser, users) {
-            // TODO: Llamar metodo
-            // Toast.makeText(requireContext(), "Clickee ${it.title}", Toast.LENGTH_SHORT).show()
-            onShowDetails(it)
+            onShowDetails(it, vNewsUser.text as String)
         }
         rv.adapter = adapter
         adapter.notifyDataSetChanged()
         firstCallFlag = false
     }
 
-    private fun onShowDetails(currentNews: News) {
-        NewsDetailsActivity.start(requireContext(), currentNews)
+    private fun onShowDetails(currentNews: News, user: String) {
+        NewsDetailsActivity.start(requireContext(), currentNews, user)
     }
 
     private fun fillNewsList(newsListToAdd: Array<News>, timesToLoad: Int) {
