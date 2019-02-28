@@ -1,6 +1,7 @@
 package ar.com.wolox.android.example.ui.home.newsdetails
 
 import android.os.Bundle
+import android.widget.Toast
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.model.News
 import ar.com.wolox.android.example.utils.onClickListener
@@ -11,13 +12,15 @@ import javax.inject.Inject
 
 class NewsDetailsFragment @Inject constructor() : WolmoFragment<NewsDetailsPresenter>(), INewsDetailsView {
 
+    private var currentNews: News? = null
+
     override fun layout(): Int = R.layout.fragment_news_details
 
     override fun init() {
         val args = arguments
-        val currentNews = args!!.getSerializable(KEY_NEWS) as News
+        currentNews = args!!.getSerializable(KEY_NEWS) as News
         val username = args.getSerializable(KEY_USERS) as String
-        configNews(currentNews, username)
+        configNews(currentNews!!, username)
     }
 
     private fun configNews(currentNews: News, username: String) {
@@ -43,6 +46,24 @@ class NewsDetailsFragment @Inject constructor() : WolmoFragment<NewsDetailsPrese
         vNewsDetailsLikeIcon.onClickListener {
             vNewsDetailsLikeIcon.isSelected = !vNewsDetailsLikeIcon.isSelected
         }
+        vNewsDetailsSwipe.setOnRefreshListener {
+            vNewsDetailsSwipe.isRefreshing = false
+            presenter.refreshNews(currentNews!!.id)
+        }
+    }
+
+    override fun setNewsContent(currentNews: News) {
+        val username = vNewsDetailsUsername.text as String
+        Toast.makeText(context, getString(R.string.news_load_success), Toast.LENGTH_SHORT).show()
+        configNews(currentNews, username)
+    }
+
+    override fun loadNewsFailed() {
+        Toast.makeText(context, getString(R.string.news_load_failed), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onLoginConnectionError() {
+        Toast.makeText(context, getString(R.string.connection_error), Toast.LENGTH_SHORT).show()
     }
 
     companion object {

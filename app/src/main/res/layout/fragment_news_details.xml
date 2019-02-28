@@ -5,72 +5,75 @@
     android:id="@+id/vNewsDetailsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ScrollView
-        style="@android:style/Widget.DeviceDefault.Light.ScrollView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/vNewsDetailsSwipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent">
+        <ScrollView
+            style="@android:style/Widget.DeviceDefault.Light.ScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <ImageView
-                android:id="@+id/vNewsDetailsImage"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/news_details_image_height"
-                android:scaleType="centerCrop"
-                android:src="@drawable/wolox_logo"
-                app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/vNewsDetailsUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vNewsDetailsImage" />
+                <ImageView
+                    android:id="@+id/vNewsDetailsImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/news_details_image_height"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/wolox_logo"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/vNewsDetailsCreatedAt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="16dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vNewsDetailsImage" />
+                <TextView
+                    android:id="@+id/vNewsDetailsUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vNewsDetailsImage" />
 
-            <TextView
-                android:id="@+id/vNewsDetailsText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/vNewsDetailsLikeIcon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vNewsDetailsUsername"
-                app:layout_constraintVertical_bias="0.0" />
+                <TextView
+                    android:id="@+id/vNewsDetailsCreatedAt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vNewsDetailsImage" />
 
-            <ImageView
-                android:id="@+id/vNewsDetailsLikeIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginBottom="16dp"
-                android:adjustViewBounds="false"
-                android:src="@drawable/news_like_selector"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                <TextView
+                    android:id="@+id/vNewsDetailsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/vNewsDetailsLikeIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vNewsDetailsUsername"
+                    app:layout_constraintVertical_bias="0.0" />
 
+                <ImageView
+                    android:id="@+id/vNewsDetailsLikeIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="16dp"
+                    android:adjustViewBounds="false"
+                    android:src="@drawable/news_like_selector"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
