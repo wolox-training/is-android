@@ -50,6 +50,11 @@ class NewsDetailsFragment @Inject constructor() : WolmoFragment<NewsDetailsPrese
             vNewsDetailsSwipe.isRefreshing = false
             presenter.refreshNews(currentNews!!.id)
         }
+        vNewsDetailsImage.onClickListener {
+            val dialog = FullScreenDialogFragment.newInstance(currentNews!!.picture)
+            val ft = fragmentManager!!.beginTransaction()
+            dialog.show(ft, FullScreenDialogFragment.Tag)
+        }
     }
 
     override fun setNewsContent(currentNews: News) {
