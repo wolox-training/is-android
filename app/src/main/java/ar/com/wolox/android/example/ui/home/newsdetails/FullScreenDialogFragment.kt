@@ -8,8 +8,9 @@ import androidx.fragment.app.DialogFragment
 import ar.com.wolox.android.R
 import ar.com.wolox.android.example.utils.onClickListener
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.fragment_news_detailes_image_fullscreen.*
-import kotlinx.android.synthetic.main.fragment_news_detailes_image_fullscreen.view.*
+import kotlinx.android.synthetic.main.custom_top_bar_back_button_and_title.view.*
+import kotlinx.android.synthetic.main.fragment_news_details_image_fullscreen.*
+import kotlinx.android.synthetic.main.fragment_news_details_image_fullscreen.view.*
 
 class FullScreenDialogFragment : DialogFragment() {
 
@@ -34,8 +35,10 @@ class FullScreenDialogFragment : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.fragment_news_detailes_image_fullscreen, container, false)
-        val exitButton = view.vNewsDetailsImageFullscreenExitButton
+        val view = inflater.inflate(R.layout.fragment_news_details_image_fullscreen, container, false)
+        view.vNewsDetailsImageFullscreenTopBar.vCustomTopBarTitle.text = "Close"
+        val exitButton = view.vNewsDetailsImageFullscreenTopBar.vCustomTopBarBackButton
+        exitButton.setImageResource(R.drawable.ic_exit)
         exitButton.onClickListener { dialog!!.dismiss() }
         return view
     }

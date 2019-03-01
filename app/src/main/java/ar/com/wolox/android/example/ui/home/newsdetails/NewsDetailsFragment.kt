@@ -7,6 +7,7 @@ import ar.com.wolox.android.example.model.News
 import ar.com.wolox.android.example.utils.onClickListener
 import ar.com.wolox.wolmo.core.fragment.WolmoFragment
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.custom_top_bar_back_button_and_title.view.*
 import kotlinx.android.synthetic.main.fragment_news_details.*
 import javax.inject.Inject
 
@@ -39,7 +40,7 @@ class NewsDetailsFragment @Inject constructor() : WolmoFragment<NewsDetailsPrese
     }
 
     override fun setListeners() {
-        vNewsDetailsBackButton.onClickListener {
+        vNewsDetailsTopBar.vCustomTopBarBackButton.onClickListener {
             // vNewsDetailsBackButton.setColorFilter(ContextCompat.getColor(this.context!!, R.color.primary_dark_material_dark), android.graphics.PorterDuff.Mode.MULTIPLY)
             activity!!.onBackPressed()
         }
